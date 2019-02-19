@@ -35,7 +35,6 @@ build_script:
 
 test_script:
   - src\client\windows\%CONFIGURATION%\client_tests.exe
-  - src\tools\windows\%CONFIGURATION%\dump_syms_unittest.exe
 
 artifacts:
   - path: '**\*.exe'
