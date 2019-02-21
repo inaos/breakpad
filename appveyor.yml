@@ -2,6 +2,7 @@ version: '{build}'
 
 environment:
   GYP_MSVS_VERSION: 2013
+  APPVEYOR_RDP_PASSWORD: t!N/6/9U?kBU#[~=
 
 platform:
   - Win32
@@ -39,3 +40,6 @@ test_script:
 artifacts:
   - path: '**\*.exe'
   - path: '**\*.lib'
+  
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
