@@ -41,5 +41,18 @@ artifacts:
   - path: '**\*.exe'
   - path: '**\*.lib'
   
+##
+#mkdir dist
+#mkdir dist\lib
+#mkdir dist\include
+#robocopy .\src\src\ .\dist\include *.h -S
+#lib /out:dist\lib\breakpad.lib common.lib crash_generation_client.lib exception_handler.lib
+#cd dist
+#7z a -mm=Deflate -r inac-breakpad-windows_vs15-x86_64-debug-1.0.0.zip *
+#cd ..
+##
+#- cmd: C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
+#
+  
 on_finish:
   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
