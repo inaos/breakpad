@@ -7,7 +7,6 @@ branches:
 
 environment:
   ARTIFACT_VERSION: 1.0.0
-  GYP_MSVS_VERSION: 2013
   repos_url:
     secure: wbMaKKMl/4jSAM/lB2wiESwbEs53q7vO8KO8QT/EdH6Tr3ZVtUxsYZSV7OpaYAPY
   repos_uid:
@@ -22,19 +21,21 @@ environment:
 #      BUILD_CONFIGURATION: Debug
 #      ARTIFACT_NAME: inac-breakpad-linux
 
-    - MY_NAME: Windows VS 2015 Debug 32bit
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
-      MSVC_PLATFORM: x86
-      BUILD_PLATFORM: Win32
-      BUILD_CONFIGURATION: Debug
-      BUILD_ARCH: x86
-      BUILD_TOOLSET: v120
-      ARTIFACT_NAME: inac-breakpad-windows_vs15
+#    - MY_NAME: Windows VS 2015 Debug 32bit
+#      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+#      VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
+#      GYP_MSVS_VERSION: 2015
+#      MSVC_PLATFORM: x86
+#      BUILD_PLATFORM: Win32
+#      BUILD_CONFIGURATION: Debug
+#      BUILD_ARCH: x86
+#      BUILD_TOOLSET: v120
+#      ARTIFACT_NAME: inac-breakpad-windows_vs15
 
     - MY_NAME: Windows VS 2017 Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
+      GYP_MSVS_VERSION: 2017
       MSVC_PLATFORM: amd64
       BUILD_PLATFORM: x64
       BUILD_CONFIGURATION: Debug
