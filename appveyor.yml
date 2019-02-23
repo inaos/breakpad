@@ -80,9 +80,31 @@ after_build:
          7z a -mm=Deflate -r %ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%.zip *
          cd ..
 
-test_script:
-  - src\client\windows\%BUILD_CONFIGURATION%\client_tests.exe
-
 artifacts:
   - path: dist/*.zip
 
+deploy_script:
+  - ps: |
+        if ($Env:UPLOAD_TO_ARTIFACTORY -eq "yes") {
+          $src = $artifacts["INAC"].path
+          $artifact_name = Split-Path $src -leaf
+          $artifact_name -match "(\d+\.\d+)"
+          $artifact_version = $matches[1]
+          $target = "inaos/breakpad/$artifact_version/$artifact_name"
+          Write-Host $src
+          Write-Host $artifact_name
+          Write-Host $artifact_version
+          Write-Host $target
+          Write-Host $Env:OS
+          $user = $env:repos_uid
+          $pwd = $env:repos_pwd
+          $url = "$env:repos_url/$target"
+          if ($Env:OS -eq "Windows_NT") {
+            Write-Host "curl.exe -u${user}:${pwd}  -T $src $url"
+            $ret = curl.exe "-u${user}:${pwd}" "-T" $src $url 2>1
+          } else {
+            $ret = /usr/bin/curl "-u${user}:${pwd}" "-T" $src $url 2>1
+          }
+          $LastExitCode = 0
+        }
+  
