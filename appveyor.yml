@@ -104,7 +104,7 @@ for:
 -
   matrix:
     except:
-      - image: Ubuntu
+      - image: ubuntu
         
   clone_folder: c:\projects\breakpad\src
 
