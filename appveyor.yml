@@ -142,7 +142,7 @@ after_build:
 
 artifacts:
   - path: dist/*.zip
-  - name: breakpad
+    name: breakpad
 
 deploy_script:
   - ps: |
