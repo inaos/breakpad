@@ -19,14 +19,14 @@ environment:
   matrix:
 #    - MY_NAME: Linux Debug 64bit
 #      APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
-#      BUILD_CONFIGURATION: debug
+#      BUILD_CONFIGURATION: Debug
 #      ARTIFACT_NAME: inac-breakpad-linux
 
     - MY_NAME: Windows VS 2017 Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_PLATFORM: amd64
-      BUILD_CONFIGURATION: debug
+      BUILD_CONFIGURATION: Debug
       BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs17
 
@@ -64,10 +64,10 @@ after_build:
          mkdir dist\lib
          mkdir dist\include
          robocopy .\src\src\ .\dist\include *.h -S
-#lib /out:dist\lib\breakpad.lib common.lib crash_generation_client.lib exception_handler.lib
-#cd dist
-#7z a -mm=Deflate -r %ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%.zip *
-#cd ..
+         lib /out:dist\lib\breakpad.lib src\src\client\windows\%BUILD_CONFIGURATION%\lib\common.lib src\src\client\windows\%BUILD_CONFIGURATION%\lib\crash_generation_client.lib src\src\client\windows\%BUILD_CONFIGURATION%\lib\exception_handler.lib
+         cd dist
+         7z a -mm=Deflate -r %ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%.zip *
+         cd ..
 
 test_script:
   - src\client\windows\%BUILD_CONFIGURATION%\client_tests.exe
