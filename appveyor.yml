@@ -158,7 +158,7 @@ after_build:
          cd src
          find . -name '*.h' -exec cp --parents \{\} ../dist/include \;
          cd ..
-         cd dist; zip -r %ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%.zip *
+         cd dist; zip -r $ARTIFACT_NAME-$BUILD_ARCH-$BUILD_CONFIGURATION-$ARTIFACT_VERSION.zip *
 
   - cmd: |
          cd %APPVEYOR_BUILD_FOLDER%
