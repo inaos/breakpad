@@ -45,7 +45,6 @@ coverity_scan() {
 build() {
   ./configure --with-tests-as-root
   make -j${JOBS} VERBOSE=1
-  make distclean
 }
 
 # Do an out-of-tree build and make sure we can create a release tarball.
@@ -60,7 +59,7 @@ build_out_of_tree() {
 main() {
   setup_env
   build
-  build_out_of_tree
+  #build_out_of_tree
   
   # Do scans last as they like to dirty the tree and some tests
   # expect a clean tree (like code style checks).
