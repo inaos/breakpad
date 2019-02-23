@@ -103,7 +103,8 @@ environment:
 matrix:
     fast_finish: false
 
-clone_folder: c:\projects\breakpad\src
+clone_folder: 
+  - c:\projects\breakpad\src
 
 for:
 -
@@ -111,7 +112,8 @@ for:
     only:
       - image: Ubuntu
 
-    clone_folder: /home/appveyor/projects/breakpad
+    clone_folder:
+      - /home/appveyor/projects/breakpad
 
 # Before checkout.
 init:
