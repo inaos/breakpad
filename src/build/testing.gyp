@@ -31,6 +31,11 @@
     {
       'target_name': 'gtest',
       'type': 'static_library',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false'
+        }
+      },
       'sources': [
         '../testing/googletest/src/gtest-all.cc',
       ],
@@ -47,6 +52,11 @@
     {
       'target_name': 'gtest_main',
       'type': 'static_library',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false'
+        }
+      },
       'dependencies': [
         'gtest',
       ],
@@ -57,6 +67,11 @@
     {
       'target_name': 'gmock',
       'type': 'static_library',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false'
+        }
+      },
       'dependencies': [
         'gtest',
       ],
@@ -79,6 +94,11 @@
     {
       'target_name': 'gmock_main',
       'type': 'static_library',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false'
+        }
+      },
       'dependencies': [
         'gmock',
       ],
