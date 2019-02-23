@@ -104,9 +104,8 @@ for:
 -
   matrix:
     except:
-      - image: ubuntu
-        
-  clone_folder: c:\projects\breakpad\src
+      - image: Ubuntu
+    clone_folder: c:\projects\breakpad\src
 
 matrix:
     fast_finish: false
