@@ -62,6 +62,7 @@ main() {
   build
   build_out_of_tree
 
+  ls src/build/native
   # Do scans last as they like to dirty the tree and some tests
   # expect a clean tree (like code style checks).
   #coverity_scan
