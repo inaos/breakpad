@@ -18,7 +18,9 @@ environment:
   matrix:
     - MY_NAME: Linux Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
-      BUILD_CONFIGURATION: Debug
+      BUILD_CONFIGURATION: debug
+      BUILD_ARCH: x86_x64
+      ARTIFACT_NAME: inac-breakpad-linux
       GCLIENT_FOLDER: /home/appveyor/projects/breakpad/src
       
     - MY_NAME: Windows VS 2015 Debug 32bit
