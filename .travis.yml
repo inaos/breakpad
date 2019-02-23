@@ -23,8 +23,6 @@ matrix:
     - os: linux
       compiler: gcc
       env: USE_CC=gcc-4.8 USE_CXX=g++-4.8
-    - os: linux
-      compiler: clang
 
 before_install: ./scripts/travis-checkout.sh
 script: ./scripts/travis-build.sh
