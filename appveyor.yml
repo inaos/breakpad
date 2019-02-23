@@ -29,6 +29,7 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      clone_folder: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2015 Release 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -39,6 +40,7 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      clone_folder: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2015 Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -49,6 +51,7 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86_x64
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      clone_folder: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2015 Release 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -59,6 +62,7 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86_x64
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      clone_folder: c:\projects\breakpad\src
 
     - MY_NAME: Windows VS 2017 Debug 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -69,6 +73,7 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs17
+      clone_folder: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2017 Release 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -79,6 +84,7 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs17
+      clone_folder: c:\projects\breakpad\src
 
     - MY_NAME: Windows VS 2017 Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -89,6 +95,7 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs17
+      clone_folder: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2017 Release 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -99,13 +106,7 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs17
-      
-for:
--
-  matrix:
-    except:
-      - image: Ubuntu
-    clone_folder: c:\projects\breakpad\src
+      clone_folder: c:\projects\breakpad\src
 
 matrix:
     fast_finish: false
