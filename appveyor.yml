@@ -29,6 +29,56 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      
+    - MY_NAME: Windows VS 2015 Release 32bit
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
+      GYP_MSVS_VERSION: 2015
+      MSVC_PLATFORM: x86
+      BUILD_PLATFORM: Win32
+      BUILD_CONFIGURATION: release
+      BUILD_ARCH: x86
+      ARTIFACT_NAME: inac-breakpad-windows_vs15
+      
+    - MY_NAME: Windows VS 2015 Debug 64bit
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
+      GYP_MSVS_VERSION: 2015
+      MSVC_PLATFORM: amd64
+      BUILD_PLATFORM: x64
+      BUILD_CONFIGURATION: debug
+      BUILD_ARCH: x86_x64
+      ARTIFACT_NAME: inac-breakpad-windows_vs15
+      
+    - MY_NAME: Windows VS 2015 Release 64bit
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
+      GYP_MSVS_VERSION: 2015
+      MSVC_PLATFORM: amd64
+      BUILD_PLATFORM: x64
+      BUILD_CONFIGURATION: release
+      BUILD_ARCH: x86_x64
+      ARTIFACT_NAME: inac-breakpad-windows_vs15
+
+    - MY_NAME: Windows VS 2017 Debug 32bit
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
+      GYP_MSVS_VERSION: 2017
+      MSVC_PLATFORM: x86
+      BUILD_PLATFORM: Win32
+      BUILD_CONFIGURATION: debug
+      BUILD_ARCH: x86
+      ARTIFACT_NAME: inac-breakpad-windows_vs17
+      
+    - MY_NAME: Windows VS 2017 Release 32bit
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
+      GYP_MSVS_VERSION: 2017
+      MSVC_PLATFORM: x86
+      BUILD_PLATFORM: Win32
+      BUILD_CONFIGURATION: release
+      BUILD_ARCH: x86
+      ARTIFACT_NAME: inac-breakpad-windows_vs17
 
     - MY_NAME: Windows VS 2017 Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -37,6 +87,16 @@ environment:
       MSVC_PLATFORM: amd64
       BUILD_PLATFORM: x64
       BUILD_CONFIGURATION: debug
+      BUILD_ARCH: x86_64
+      ARTIFACT_NAME: inac-breakpad-windows_vs17
+      
+    - MY_NAME: Windows VS 2017 Release 64bit
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
+      GYP_MSVS_VERSION: 2017
+      MSVC_PLATFORM: amd64
+      BUILD_PLATFORM: x64
+      BUILD_CONFIGURATION: release
       BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs17
 
@@ -82,11 +142,12 @@ after_build:
 
 artifacts:
   - path: dist/*.zip
+  - name: breakpad
 
 deploy_script:
   - ps: |
         if ($Env:UPLOAD_TO_ARTIFACTORY -eq "yes") {
-          $src = $artifacts["INAC"].path
+          $src = $artifacts["breakpad"].path
           $artifact_name = Split-Path $src -leaf
           $artifact_name -match "(\d+\.\d+)"
           $artifact_version = $matches[1]
