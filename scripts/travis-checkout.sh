@@ -9,8 +9,8 @@ get_depot_tools() {
 
 gclient_sync() {
   # Rename the source dir to match what gclient expects.
-  srcdir=$(basename "$TRAVIS_BUILD_DIR")
-  cd "${TRAVIS_BUILD_DIR}"/..
+  srcdir=$(basename "$APPVEYOR_BUILD_FOLDER")
+  cd "${APPVEYOR_BUILD_FOLDER}"/..
   mv "${srcdir}" src
   gclient config --unmanaged https://github.com/google/breakpad.git
   gclient sync
