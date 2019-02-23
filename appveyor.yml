@@ -26,7 +26,7 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_PLATFORM: x86
-      platform: Win32
+      BUILD_PLATFORM: Win32
       BUILD_CONFIGURATION: Debug
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs17
@@ -55,8 +55,8 @@ install:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
-  - msbuild src\client\windows\breakpad_client.sln /p:Configuration=%BUILD_CONFIGURATION% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
-  - msbuild src\tools\windows\tools_windows.sln    /p:Configuration=%BUILD_CONFIGURATION% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+  - msbuild src\client\windows\breakpad_client.sln /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+  - msbuild src\tools\windows\tools_windows.sln    /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
 
 after_build:
   - cmd: |
