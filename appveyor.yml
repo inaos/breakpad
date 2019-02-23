@@ -1,21 +1,44 @@
 version: '{build}'
 
+branches:
+  # whitelist
+  only:
+    - master
+
 environment:
+  ARTIFACT_VERSION: 1.0.0
   GYP_MSVS_VERSION: 2013
+  repos_url:
+    secure: wbMaKKMl/4jSAM/lB2wiESwbEs53q7vO8KO8QT/EdH6Tr3ZVtUxsYZSV7OpaYAPY
+  repos_uid:
+    secure: IYKu7Mmdx2GXqwxzp/IQNg==
+  repos_pwd:
+    secure: 2xpsiuGNHwFPtxdh8pA/Mm0I1bC1EfC8NBSoxOEiNco=
   APPVEYOR_RDP_PASSWORD: t!N/6/9U?kBU#[~=
 
-platform:
-  - Win32
+  matrix:
+#    - MY_NAME: Linux Debug 64bit
+#      APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
+#      BUILD_CONFIGURATION: debug
+#      ARTIFACT_NAME: inac-breakpad-linux
 
-configuration:
-  - Debug
-  - Release
+    - MY_NAME: Windows VS 2017 Debug 64bit
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
+      MSVC_PLATFORM: amd64
+      BUILD_CONFIGURATION: debug
+      BUILD_ARCH: x86_64
+      ARTIFACT_NAME: inac-breakpad-windows_vs17
+
+matrix:
+    fast_finish: false
 
 # Use the source dir expected by gclient.
 clone_folder: c:\projects\breakpad\src
 
 # Before checkout.
 init:
+  - cmd: C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
   - cd %APPVEYOR_BUILD_FOLDER%\..\..
   - appveyor DownloadFile https://storage.googleapis.com/chrome-infra/depot_tools.zip
   - 7z -bd x depot_tools.zip -odepot_tools
@@ -31,28 +54,26 @@ install:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
-  - msbuild src\client\windows\breakpad_client.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
-  - msbuild src\tools\windows\tools_windows.sln    /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+  - msbuild src\client\windows\breakpad_client.sln /p:Configuration=%BUILD_CONFIGURATION% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+  - msbuild src\tools\windows\tools_windows.sln    /p:Configuration=%BUILD_CONFIGURATION% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
 
-test_script:
-  - src\client\windows\%CONFIGURATION%\client_tests.exe
-
-artifacts:
-  - path: '**\*.exe'
-  - path: '**\*.lib'
-  
-##
-#mkdir dist
-#mkdir dist\lib
-#mkdir dist\include
-#robocopy .\src\src\ .\dist\include *.h -S
+after_build:
+  - cmd: |
+         cd %APPVEYOR_BUILD_FOLDER%
+         mkdir dist
+         mkdir dist\lib
+         mkdir dist\include
+         robocopy .\src\src\ .\dist\include *.h -S
 #lib /out:dist\lib\breakpad.lib common.lib crash_generation_client.lib exception_handler.lib
 #cd dist
-#7z a -mm=Deflate -r inac-breakpad-windows_vs15-x86_64-debug-1.0.0.zip *
+#7z a -mm=Deflate -r %ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%.zip *
 #cd ..
-##
-#- cmd: C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
-#
+
+test_script:
+  - src\client\windows\%BUILD_CONFIGURATION%\client_tests.exe
+
+artifacts:
+  - path: dist/*.zip
   
 on_finish:
   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
