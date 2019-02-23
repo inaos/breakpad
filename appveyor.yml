@@ -19,7 +19,7 @@ environment:
     - MY_NAME: Linux Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
       BUILD_CONFIGURATION: Debug
-      GCLIENT_FOLDER: /home/appveyor/projects/breakpad
+      GCLIENT_FOLDER: /home/appveyor/projects/breakpad/src
       
     - MY_NAME: Windows VS 2015 Debug 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
