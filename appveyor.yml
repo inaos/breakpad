@@ -108,7 +108,7 @@ clone_folder: c:\projects\breakpad\src
 for:
 -
   matrix:
-    except:
+    only:
       - image: Ubuntu
 
   clone_folder: /home/appveyor/projects/breakpad
