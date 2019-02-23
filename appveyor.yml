@@ -13,12 +13,18 @@ environment:
     secure: IYKu7Mmdx2GXqwxzp/IQNg==
   repos_pwd:
     secure: 2xpsiuGNHwFPtxdh8pA/Mm0I1bC1EfC8NBSoxOEiNco=
-  APPVEYOR_SSH_KEY: ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApG0vJ+49aAGWgWnDEGBQ7nYqHXpUhBNpLIXR1XBOk3q/QgtfmGhdWwDU7/9ctfL4+/qV77EkwBLHtyo4DExc66njRy1Fn6k7hf+sd/sYPfkyKuKWXhIG77oWubcW/Tf5q8aawZa5QWkW9EvVrm8kq0J2oy/OAFiMhfdfXI6BfJg6qyEmNtgk4q3Ic31UaVLR8OJWOgAnXkr/FzBSPmaS6myatvUGWSD9fVW13luFNXSCA215HULfXrf/IzXwc8fdlmCmPU0ZzD5mqyhs7n36AFo2GappC2MOvXqKP8bulD2RJwr+ks/7Dy6lBm0DBtFpYkC1Eczk3Y2MioaztxKRRQ==
 
   matrix:
     - MY_NAME: Linux Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
       BUILD_CONFIGURATION: debug
+      BUILD_ARCH: x86_x64
+      ARTIFACT_NAME: inac-breakpad-linux
+      GCLIENT_FOLDER: /home/appveyor/projects/breakpad/src
+      
+    - MY_NAME: Linux Release 64bit
+      APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
+      BUILD_CONFIGURATION: release
       BUILD_ARCH: x86_x64
       ARTIFACT_NAME: inac-breakpad-linux
       GCLIENT_FOLDER: /home/appveyor/projects/breakpad/src
