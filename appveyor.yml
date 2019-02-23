@@ -100,9 +100,7 @@ for:
   matrix:
     except:
       - image: Ubuntu
-      
-      # Use the source dir expected by gclient.
-      clone_folder: c:\projects\breakpad\src
+        clone_folder: c:\projects\breakpad\src
 
 matrix:
     fast_finish: false
