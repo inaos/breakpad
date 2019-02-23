@@ -34,6 +34,11 @@
     {
       'target_name': 'client_tests',
       'type': 'executable',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false'
+        }
+      },
       'sources': [
         'exception_handler_test.h',
         'exception_handler_test.cc',
@@ -57,6 +62,11 @@
     {
       'target_name': 'processor_bits',
       'type': 'static_library',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false'
+        }
+      },
       'include_dirs': [
         '<(DEPTH)',
       ],
