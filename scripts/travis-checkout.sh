@@ -12,7 +12,7 @@ gclient_sync() {
   #srcdir=$(basename "$APPVEYOR_BUILD_FOLDER")
   #cd "${APPVEYOR_BUILD_FOLDER}"/..
   #mv "${srcdir}" src
-  cd $APPVEYOR_BUILD_FOLDER\..
+  cd $APPVEYOR_BUILD_FOLDER/..
   gclient config --unmanaged https://github.com/google/breakpad.git
   gclient sync
 }
