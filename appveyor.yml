@@ -94,33 +94,41 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs17
+      
+for:
+-
+  matrix:
+    except:
+      - image: Ubuntu
+      
+      # Use the source dir expected by gclient.
+      clone_folder: c:\projects\breakpad\src
 
 matrix:
     fast_finish: false
 
-# Use the source dir expected by gclient.
-clone_folder: c:\projects\breakpad\src
-
 # Before checkout.
 init:
-  - cd %APPVEYOR_BUILD_FOLDER%\..\..
-  - appveyor DownloadFile https://storage.googleapis.com/chrome-infra/depot_tools.zip
-  - 7z -bd x depot_tools.zip -odepot_tools
-  - depot_tools\update_depot_tools
-  - cd %APPVEYOR_BUILD_FOLDER%
+  - cmd: |
+         cd %APPVEYOR_BUILD_FOLDER%\..\..
+         appveyor DownloadFile https://storage.googleapis.com/chrome-infra/depot_tools.zip
+         7z -bd x depot_tools.zip -odepot_tools
+         depot_tools\update_depot_tools
+         cd %APPVEYOR_BUILD_FOLDER%
 
 # After checkout.
 install:
-  - PATH C:\projects\depot_tools;%PATH%
-  - cd %APPVEYOR_BUILD_FOLDER%\..
-  - gclient config https://%APPVEYOR_REPO_PROVIDER%.com/%APPVEYOR_REPO_NAME% --unmanaged --name=src
-  - gclient sync
+  - cmd: |
+         PATH C:\projects\depot_tools;%PATH%
+         cd %APPVEYOR_BUILD_FOLDER%\..
+         gclient config https://%APPVEYOR_REPO_PROVIDER%.com/%APPVEYOR_REPO_NAME% --unmanaged --name=src
+         gclient sync
 
 build_script:
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - set CL=/WX-
-  - msbuild src\client\windows\breakpad_client.sln /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
-  - msbuild src\tools\windows\tools_windows.sln    /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+  - cmd: |
+         cd %APPVEYOR_BUILD_FOLDER%
+         msbuild src\client\windows\breakpad_client.sln /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+         msbuild src\tools\windows\tools_windows.sln    /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
 
 after_build:
   - cmd: |
