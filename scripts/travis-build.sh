@@ -44,7 +44,7 @@ coverity_scan() {
 # Do an in-tree build and make sure tests pass.
 build() {
   ./configure --with-tests-as-root
-  make -j${JOBS} check VERBOSE=1
+  make -j${JOBS} VERBOSE=1
   make distclean
 }
 
@@ -53,13 +53,13 @@ build_out_of_tree() {
   mkdir -p build/native
   pushd build/native >/dev/null
   ../../configure --with-tests-as-root
-  make -j${JOBS} distcheck VERBOSE=1
+  make -j${JOBS} dist VERBOSE=1
   popd >/dev/null
 }
 
 main() {
   setup_env
-  #build
+  build
   build_out_of_tree
 
   # Do scans last as they like to dirty the tree and some tests
