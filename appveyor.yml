@@ -15,11 +15,6 @@ environment:
     secure: 2xpsiuGNHwFPtxdh8pA/Mm0I1bC1EfC8NBSoxOEiNco=
 
   matrix:
-#    - MY_NAME: Linux Debug 64bit
-#      APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
-#      BUILD_CONFIGURATION: Debug
-#      ARTIFACT_NAME: inac-breakpad-linux
-
     - MY_NAME: Windows VS 2015 Debug 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
