@@ -26,6 +26,7 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_PLATFORM: x86
+      platform: Win32
       BUILD_CONFIGURATION: Debug
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs17
