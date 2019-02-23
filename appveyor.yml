@@ -103,7 +103,7 @@ environment:
 matrix:
     fast_finish: false
 
-clone_folder: c:\projects\breakpad\src:
+clone_folder: c:\projects\breakpad\src
 
 for:
 -
