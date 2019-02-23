@@ -36,7 +36,8 @@
       'type': 'none',
       'msvs_settings': {
         'VCCLCompilerTool': {
-          'WarnAsError': 'false',
+          'WarnAsError': 'false'
+        }
       },
       'dependencies': [
         './crash_generation/crash_generation.gyp:*',
