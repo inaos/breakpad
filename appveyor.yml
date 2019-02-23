@@ -13,7 +13,6 @@ environment:
     secure: IYKu7Mmdx2GXqwxzp/IQNg==
   repos_pwd:
     secure: 2xpsiuGNHwFPtxdh8pA/Mm0I1bC1EfC8NBSoxOEiNco=
-  APPVEYOR_RDP_PASSWORD: t!N/6/9U?kBU#[~=
 
   matrix:
 #    - MY_NAME: Linux Debug 64bit
@@ -21,16 +20,15 @@ environment:
 #      BUILD_CONFIGURATION: Debug
 #      ARTIFACT_NAME: inac-breakpad-linux
 
-#    - MY_NAME: Windows VS 2015 Debug 32bit
-#      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-#      VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
-#      GYP_MSVS_VERSION: 2015
-#      MSVC_PLATFORM: x86
-#      BUILD_PLATFORM: Win32
-#      BUILD_CONFIGURATION: Debug
-#      BUILD_ARCH: x86
-#      BUILD_TOOLSET: v120
-#      ARTIFACT_NAME: inac-breakpad-windows_vs15
+    - MY_NAME: Windows VS 2015 Debug 32bit
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
+      GYP_MSVS_VERSION: 2015
+      MSVC_PLATFORM: x86
+      BUILD_PLATFORM: Win32
+      BUILD_CONFIGURATION: debug
+      BUILD_ARCH: x86
+      ARTIFACT_NAME: inac-breakpad-windows_vs15
 
     - MY_NAME: Windows VS 2017 Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -38,9 +36,8 @@ environment:
       GYP_MSVS_VERSION: 2017
       MSVC_PLATFORM: amd64
       BUILD_PLATFORM: x64
-      BUILD_CONFIGURATION: Debug
+      BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86_64
-      BUILD_TOOLSET: v141
       ARTIFACT_NAME: inac-breakpad-windows_vs17
 
 matrix:
@@ -67,8 +64,8 @@ install:
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - set CL=/WX-
-  - msbuild src\client\windows\breakpad_client.sln /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /p:PlatformToolset=%BUILD_TOOLSET% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
-  - msbuild src\tools\windows\tools_windows.sln    /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /p:PlatformToolset=%BUILD_TOOLSET% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+  - msbuild src\client\windows\breakpad_client.sln /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+  - msbuild src\tools\windows\tools_windows.sln    /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
 
 after_build:
   - cmd: |
@@ -88,6 +85,4 @@ test_script:
 
 artifacts:
   - path: dist/*.zip
-  
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
