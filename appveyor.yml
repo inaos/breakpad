@@ -39,7 +39,6 @@ clone_folder: c:\projects\breakpad\src
 
 # Before checkout.
 init:
-  - cmd: C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
   - cd %APPVEYOR_BUILD_FOLDER%\..\..
   - appveyor DownloadFile https://storage.googleapis.com/chrome-infra/depot_tools.zip
   - 7z -bd x depot_tools.zip -odepot_tools
@@ -61,6 +60,7 @@ build_script:
 after_build:
   - cmd: |
          cd %APPVEYOR_BUILD_FOLDER%
+         C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
          mkdir dist
          mkdir dist\lib
          mkdir dist\include
