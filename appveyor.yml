@@ -76,8 +76,8 @@ after_build:
          mkdir dist
          mkdir dist\lib
          mkdir dist\include
-         robocopy .\src\src\ .\dist\include *.h -S
-         lib /out:dist\lib\breakpad.lib src\src\client\windows\%BUILD_CONFIGURATION%\lib\common.lib src\src\client\windows\%BUILD_CONFIGURATION%\lib\crash_generation_client.lib src\src\client\windows\%BUILD_CONFIGURATION%\lib\exception_handler.lib
+         robocopy .\src\ .\dist\include *.h -S
+         lib /out:dist\lib\breakpad.lib src\client\windows\%BUILD_CONFIGURATION%\lib\common.lib src\client\windows\%BUILD_CONFIGURATION%\lib\crash_generation_client.lib src\client\windows\%BUILD_CONFIGURATION%\lib\exception_handler.lib
          cd dist
          7z a -mm=Deflate -r %ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%.zip *
          cd ..
