@@ -34,6 +34,10 @@
     {
       'target_name': 'build_all',
       'type': 'none',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false',
+      },
       'dependencies': [
         './crash_generation/crash_generation.gyp:*',
         './handler/exception_handler.gyp:*',
