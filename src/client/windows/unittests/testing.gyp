@@ -36,6 +36,11 @@
     {
       'target_name': 'gtest',
       'type': 'static_library',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false'
+        }
+      },
       'include_dirs': [
         '<(DEPTH)/testing/include',
         '<(DEPTH)/testing/googletest/include',
@@ -60,6 +65,11 @@
     {
       'target_name': 'gmock',
       'type': 'static_library',
+      'msvs_settings': {
+        'VCCLCompilerTool': {
+          'WarnAsError': 'false'
+        }
+      },
       'include_dirs': [
         '<(DEPTH)/testing/include',
         '<(DEPTH)/testing/googletest/include',
