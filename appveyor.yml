@@ -19,6 +19,7 @@ environment:
     - MY_NAME: Linux Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
       BUILD_CONFIGURATION: Debug
+      GCLIENT_FOLDER: /home/appveyor/projects/breakpad
       
     - MY_NAME: Windows VS 2015 Debug 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -29,6 +30,7 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      GCLIENT_FOLDER: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2015 Release 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -39,6 +41,7 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      GCLIENT_FOLDER: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2015 Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -49,6 +52,7 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86_x64
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      GCLIENT_FOLDER: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2015 Release 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -59,6 +63,7 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86_x64
       ARTIFACT_NAME: inac-breakpad-windows_vs15
+      GCLIENT_FOLDER: c:\projects\breakpad\src
 
     - MY_NAME: Windows VS 2017 Debug 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -69,6 +74,7 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs17
+      GCLIENT_FOLDER: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2017 Release 32bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -79,6 +85,7 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86
       ARTIFACT_NAME: inac-breakpad-windows_vs17
+      GCLIENT_FOLDER: c:\projects\breakpad\src
 
     - MY_NAME: Windows VS 2017 Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -89,6 +96,7 @@ environment:
       BUILD_CONFIGURATION: debug
       BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs17
+      GCLIENT_FOLDER: c:\projects\breakpad\src
       
     - MY_NAME: Windows VS 2017 Release 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -99,21 +107,12 @@ environment:
       BUILD_CONFIGURATION: release
       BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs17
+      GCLIENT_FOLDER: c:\projects\breakpad\src
 
 matrix:
     fast_finish: false
 
-clone_folder: 
-  - c:\projects\breakpad\src
-
-for:
--
-  matrix:
-    only:
-      - image: Ubuntu
-
-    clone_folder:
-      - /home/appveyor/projects/breakpad
+clone_folder: $(GCLIENT_FOLDER)
 
 # Before checkout.
 init:
