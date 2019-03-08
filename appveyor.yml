@@ -154,28 +154,32 @@ build_script:
 after_build:
   - sh:  |
          cd $APPVEYOR_BUILD_FOLDER
+         folder=$ARTIFACT_NAME-$BUILD_ARCH-$BUILD_CONFIGURATION-$ARTIFACT_VERSION
          mkdir dist
-         mkdir dist/bin
-         mkdir dist/lib
-         mkdir dist/include
-         cp $APPVEYOR_BUILD_FOLDER/src/tools/linux/dump_syms/dump_syms dist/bin
-         cp $APPVEYOR_BUILD_FOLDER/src/processor/microdump_stackwalk  dist/bin
-         cp $APPVEYOR_BUILD_FOLDER/src/processor/minidump_dump dist/bin
-         cp $APPVEYOR_BUILD_FOLDER/src/client/linux/libbreakpad_client.a dist/bin
-         cp $APPVEYOR_BUILD_FOLDER/src/libbreakpad.a dist/lib
+         mkdir $folder
+         mkdir dist/$folder/bin
+         mkdir dist/$folder/lib
+         mkdir dist/$folder/include
+         cp $APPVEYOR_BUILD_FOLDER/src/tools/linux/dump_syms/dump_syms dist/$folder/bin
+         cp $APPVEYOR_BUILD_FOLDER/src/processor/microdump_stackwalk  dist/$folder/bin
+         cp $APPVEYOR_BUILD_FOLDER/src/processor/minidump_dump dist/$folder/bin
+         cp $APPVEYOR_BUILD_FOLDER/src/client/linux/libbreakpad_client.a dist/$folder/bin
+         cp $APPVEYOR_BUILD_FOLDER/src/libbreakpad.a dist/$folder/lib
          cd src
-         find . -name '*.h' -exec cp --parents \{\} ../dist/include \;
+         find . -name '*.h' -exec cp --parents \{\} ../dist/$folder/include \;
          cd ..
          cd dist; zip -r $ARTIFACT_NAME-$BUILD_ARCH-$BUILD_CONFIGURATION-$ARTIFACT_VERSION.zip *
 
   - cmd: |
          cd %APPVEYOR_BUILD_FOLDER%
          C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
+         set folder=%ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%
          mkdir dist
-         mkdir dist\lib
-         mkdir dist\include
-         robocopy .\src\ .\dist\include *.h -S & exit 0
-         lib /out:dist\lib\breakpad.lib src\client\windows\%BUILD_CONFIGURATION%\lib\common.lib src\client\windows\%BUILD_CONFIGURATION%\lib\crash_generation_client.lib src\client\windows\%BUILD_CONFIGURATION%\lib\exception_handler.lib
+         mkdir dist\%folder%
+         mkdir dist\%folder%\lib
+         mkdir dist\%folder%\include
+         robocopy .\src\ .\dist\%folder%\include *.h -S & exit 0
+         lib /out:dist\%folder%\lib\breakpad.lib src\client\windows\%BUILD_CONFIGURATION%\lib\common.lib src\client\windows\%BUILD_CONFIGURATION%\lib\crash_generation_client.lib src\client\windows\%BUILD_CONFIGURATION%\lib\exception_handler.lib
          cd dist
          7z a -mm=Deflate -r %ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%.zip *
          cd ..
