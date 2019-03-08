@@ -156,7 +156,7 @@ after_build:
          cd $APPVEYOR_BUILD_FOLDER
          folder=$ARTIFACT_NAME-$BUILD_ARCH-$BUILD_CONFIGURATION-$ARTIFACT_VERSION
          mkdir dist
-         mkdir $folder
+         mkdir dist/$folder
          mkdir dist/$folder/bin
          mkdir dist/$folder/lib
          mkdir dist/$folder/include
