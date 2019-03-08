@@ -18,14 +18,14 @@ environment:
     - MY_NAME: Linux Debug 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
       BUILD_CONFIGURATION: debug
-      BUILD_ARCH: x86_x64
+      BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-linux
       GCLIENT_FOLDER: /home/appveyor/projects/breakpad/src
       
     - MY_NAME: Linux Release 64bit
       APPVEYOR_BUILD_WORKER_IMAGE: ubuntu
       BUILD_CONFIGURATION: release
-      BUILD_ARCH: x86_x64
+      BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-linux
       GCLIENT_FOLDER: /home/appveyor/projects/breakpad/src
       
@@ -58,7 +58,7 @@ environment:
       MSVC_PLATFORM: amd64
       BUILD_PLATFORM: x64
       BUILD_CONFIGURATION: debug
-      BUILD_ARCH: x86_x64
+      BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs15
       GCLIENT_FOLDER: c:\projects\breakpad\src
       
@@ -69,7 +69,7 @@ environment:
       MSVC_PLATFORM: amd64
       BUILD_PLATFORM: x64
       BUILD_CONFIGURATION: release
-      BUILD_ARCH: x86_x64
+      BUILD_ARCH: x86_64
       ARTIFACT_NAME: inac-breakpad-windows_vs15
       GCLIENT_FOLDER: c:\projects\breakpad\src
 
