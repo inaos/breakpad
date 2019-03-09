@@ -151,6 +151,7 @@ build_script:
          cd %APPVEYOR_BUILD_FOLDER%
          msbuild src\client\windows\breakpad_client.sln /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
          msbuild src\tools\windows\tools_windows.sln    /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
+         msbuild src\inaos\inaos-tools.sln /p:Configuration=%BUILD_CONFIGURATION% /p:Platform=%BUILD_PLATFORM% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m /verbosity:normal
 
 after_build:
   - sh:  |
@@ -164,6 +165,7 @@ after_build:
          cp $APPVEYOR_BUILD_FOLDER/src/tools/linux/dump_syms/dump_syms dist/$folder/bin
          cp $APPVEYOR_BUILD_FOLDER/src/processor/microdump_stackwalk  dist/$folder/bin
          cp $APPVEYOR_BUILD_FOLDER/src/processor/minidump_dump dist/$folder/bin
+         cp $APPVEYOR_BUILD_FOLDER/src/processor/minidump_stackwalk dist/$folder/bin
          cp $APPVEYOR_BUILD_FOLDER/src/client/linux/libbreakpad_client.a dist/$folder/lib/libinac-breakpad-client.a
          cp $APPVEYOR_BUILD_FOLDER/src/libbreakpad.a dist/$folder/lib/libinac-breakpad.a
          cd src
