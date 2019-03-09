@@ -13,7 +13,6 @@ environment:
     secure: IYKu7Mmdx2GXqwxzp/IQNg==
   repos_pwd:
     secure: 2xpsiuGNHwFPtxdh8pA/Mm0I1bC1EfC8NBSoxOEiNco=
-  APPVEYOR_RDP_PASSWORD: MyPassword123@
 
   matrix:
     - MY_NAME: Linux Debug 64bit
@@ -179,8 +178,11 @@ after_build:
          set folder=%ARTIFACT_NAME%-%BUILD_ARCH%-%BUILD_CONFIGURATION%-%ARTIFACT_VERSION%
          mkdir dist
          mkdir dist\%folder%
+         mkdir dist\%folder%\bin
          mkdir dist\%folder%\lib
          mkdir dist\%folder%\include
+         cp src\tools\windows\%BUILD_CONFIGURATION%\dump_syms.exe dist\%folder%\bin\
+         cp src\inaos\%BUILD_CONFIGURATION%\minidump-stackwalk.exe dist\%folder%\bin\
          robocopy .\src\ .\dist\%folder%\include *.h -S & exit 0
          lib /out:dist\%folder%\lib\inac-breakpad.lib src\client\windows\%BUILD_CONFIGURATION%\lib\common.lib src\client\windows\%BUILD_CONFIGURATION%\lib\crash_generation_client.lib src\client\windows\%BUILD_CONFIGURATION%\lib\exception_handler.lib
          cd dist
@@ -213,7 +215,4 @@ deploy_script:
           $ret = /usr/bin/curl "-u${user}:${pwd}" "-T" $src $url 2>1
         }
         $LastExitCode = 0
-        
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
- 
+         
